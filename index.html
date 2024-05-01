@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/solarized.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+	<link rel="stylesheet" href="plugin/reveal-pointer/pointer.css" />
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Web accessibility for devs
+<img src="assets/Pasted image 20240501101118.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+Ensure that websites and web apps are usable by everyone, not just people with disabilities.
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="assets/Pasted image 20240501180347.png" alt="" style="object-fit: scale-down">
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://themeisle.com/blog/web-accessibility-statistics/
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501181408.png" alt="" style="width: 80px; object-fit: fill">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Vast majority of websites are not there yet
+
+<img src="assets/Pasted image 20240501175645.png" alt="" style="width: 800px; object-fit: fill">
+
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://webaim.org/projects/million/
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501181644.png" alt="" style="width: 160px; object-fit: fill">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Most common errors
+
+<img src="assets/Pasted image 20240501175616.png" alt="" style="width: 800px; object-fit: fill">
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://webaim.org/projects/million/
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501181644.png" alt="" style="width: 160px; object-fit: fill">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Web Accessibility laws
+
+<split even gap="2" style="text-align: left;">
+
+<div>
+
+**US - Americans with Disabilities Act - ADA**
+
+if your site offers services with in the US and does not comply you can get sued for discrimination
+
+</div>
+
+<div>
+
+**EU - European Accessibility Act - EAA**
+
+*Will be enforced from 2025*
+
+medium to large businesses with online presence in EU must comply
+
+</div>
+
+</split>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## 4 main objectives
+- make your content **perceivable**
+- make your app **operable**
+- make your information **understandable**
+- **robust** content can be interpreted by many user agents
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Bonus benefits
+- better SEO rankings
+- all users benefit from these improvements
+- saves every user time
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Accessibility basics
+
+If you follow these basics you will already achieve 80% by doing 20% of the work!
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Add a skip to content element
+
+Save keyboard and screen reader users time by letting them skip the header.
+
+<img src="assets/Skip to content example.png" alt="" style="object-fit: scale-down">
+
+
+<split left="2">
+
+```html
+<a href="#main">
+	Skip to content
+</a>
+```
+
+</split>
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://bitcoin.design/join/
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501184216.png" alt="" style="object-fit: scale-down">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Semantic markup
+
+Avoid doing this
+```html
+<body>
+	<div id="navigation">
+		<a href="/home">Home</a>
+		<a href="/download">Download</a>
+	</div>
+	<div id="main">
+		<h1>Uncover the Mystery: BitcoinSV!</h1>
+		<h6>The True Bitcoin</h6>
+		<p>Forget what you've heard; it's all about BitcoinSV!</p>
+		
+		<h3>Why BitcoinSV?</h3>
+		<h5>The Best Block Sizes</h5>
+		<p>Because bigger really is better.</p>
+		
+		<h6>History Lesson</h6>
+		<p>How BitcoinSV was once Bitcoin, before it became its own legend.</p>
+		
+		<h2>Join the Revolution</h2>
+		<h6>Exclusive Club Benefits</h6>
+		<p>Sign up today and receive a commemorative pixel!</p>
+	</div>
+</body>
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+Do this
+```html
+<body>
+	<nav role="navigation" >
+	    <ul>
+	        <li><a href="/en">Hom</a></li>
+	        <li><a href="/en/download">Download</a></li>
+	    </ul>
+	</nav>
+	<main>
+		<article>
+			<h1>About</h1>
+			<h2>About us</h2>
+			<p>Bitcoin Core is an open source project which maintains and releases Bitcoin client software called “Bitcoin Core”.</p>
+			<p>It is a direct descendant of the original Bitcoin software client released by Satoshi Nakamoto after he published the famous Bitcoin whitepaper.</p>
+			
+			<h2>Team</h2>
+			<p>The Bitcoin Core project has a large open source developer community with many casual contributors to the codebase</p>
+			
+			<h3>Maintainers</h3>
+			<p>Project maintainers have commit access and are responsible for merging patches from contributors. They perform a janitorial role merging patches that the team agrees should be merged.</p>
+			
+			<h3>Contributors</h3>
+			<p>Everyone is free to propose code changes and to test, review and comment on open Pull Requests.
+			Anyone who contributes code, review, test, translation or documentation to the Bitcoin Core project is considered a contributor.</p>
+		</article>
+	</main>
+</body>
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Every* image deserves an alt-text
+
+**People with vision impairments heavily rely on alt texts to describe the image content**
+
+**decorative images can receive `alt=""`*
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Bonus
+*alt text also appears when image cannot be loaded*
+<img src="assets/Image not loaded with alt text.png" alt="" style="object-fit: scale-down">
+
+
+*search engines love alt texts!*
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Save your users time
+
+by adding simple autocomplete tags to your input fields
+
+> Just some examples
+> - `name` - Full name
+> - `username` - A username
+> - `current-password` - The current password for the account identified by the username field
+> - `email` - E-mail address
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Write unit tests for UI elements
+
+Unit tests are not only useful to ensure that the code works as expected, it can also guide developers to program with accessibility in mind.
+
+When rendering a component in a test, and you want to test interactions, you already build in accessibility automatically
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="assets/Screenshot of a toggle theme element.png" alt="" style="object-fit: scale-down">
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+```typescript
+it('should toggle dark mode', () => {
+    const { getByAccessibilityHint } = testRender(<ThemeSettings></ThemeSettings>)
+    expect(getColorScheme()).toEqual('light')
+	fireEvent.press(getByAccessibilityHint('enable dark mode'))
+	expect(getColorScheme()).toEqual('dark')
+    fireEvent.press(getByAccessibilityHint('disable dark mode'))
+	expect(getColorScheme()).toEqual('light')
+})
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+```typescript
+export const ThemeSettings = () => {
+    const isDarkMode = useColorScheme() === 'dark'
+    const enableDarkMode = () => Appearance.setColorScheme('dark')
+    const disableDarkMode = () => Appearance.setColorScheme('light')
+    return (
+        <View style={...}>
+            <Text style={...}>theme</Text>
+            <View style={...}>
+                <View style={...}></View>
+                <TouchableOpacity
+                    style={isDarkMode && tw`opacity-50`}
+                    accessibilityHint="disable dark mode"
+                    onPress={disableDarkMode}>
+                    <Icon id="sun" size={24}></Icon>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={!isDarkMode && tw`opacity-50`}
+                    accessibilityHint="enable dark mode"
+                    onPress={enableDarkMode}>
+                    <Icon id="moon" size={24}></Icon>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
+}
+
+```
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Resources
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### Web Content Accessibility Guidelines Checklist
+
+<img src="assets/Pasted image 20240501095732.png" alt="" style="object-fit: scale-down">
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://webaim.org/standards/wcag/checklist
+</div>
+
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501095139.png" alt="" style="object-fit: scale-down">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+### WAVE - Browser plugin to validate accessibility
+
+<img src="assets/Pasted image 20240501093927.png" alt="" style="object-fit: scale-down">
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://wave.webaim.org/extension/
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240501095535.png" alt="" style="object-fit: scale-down">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Thank you.
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+	<script src="plugin/reveal-pointer/pointer.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+	      RevealPointer,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":false,"transition":"slide","transitionSpeed":"fast"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
