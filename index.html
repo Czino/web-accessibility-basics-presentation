@@ -234,7 +234,7 @@ Avoid doing this
 <body>
 	<div id="navigation">
 		<a href="/home">Home</a>
-		<a href="/download">Download</a>
+		<a href="/download">Download
 	</div>
 	<div id="main">
 		<h1>Uncover the Mystery: BitcoinSV!</h1>
@@ -260,9 +260,9 @@ Avoid doing this
 Do this
 ```html
 <body>
-	<nav role="navigation" >
+	<nav>
 	    <ul>
-	        <li><a href="/en">Hom</a></li>
+	        <li><a href="/en">Home</a></li>
 	        <li><a href="/en/download">Download</a></li>
 	    </ul>
 	</nav>
@@ -310,11 +310,25 @@ Do this
 
 by adding simple autocomplete tags to your input fields
 
+<div class="has-light-background" style="font-size: 22px; background-color: #fdf6e3" >
+
 > Just some examples
 > - `name` - Full name
 > - `username` - A username
 > - `current-password` - The current password for the account identified by the username field
 > - `email` - E-mail address
+</div>
+
+<div class="has-light-background" style="font-size: 22px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240502123515.png" alt="" style="width: 160px; object-fit: fill">
+
+</div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -328,6 +342,16 @@ Most common examples
 role="button"
 aria-label="I am describing the element"
 ```
+<div class="has-light-background" style="font-size: 22px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
+</div>
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240502123728.png" alt="" style="width: 160px; object-fit: fill">
+
+</div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -339,11 +363,19 @@ Can you reach all content and use all functions?
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
+## Error prevention
+
+If a user is submitting important info provide a way to review and correct the data before submission.
+
+Example: make the user confirm a bitcoin transaction
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
 ## Write unit tests for UI elements
 
 Unit tests are not only useful to ensure that the code works as expected, it can also guide developers to program with accessibility in mind.
 
-When rendering a component in a test, and you want to test interactions, you already build in accessibility automatically
+When rendering a component in a test, and you want to test interactions, you already build in accessibility automatically.
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
@@ -399,6 +431,25 @@ export const ThemeSettings = () => {
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
+## eslint plugin for JSX
+
+<img src="assets/Pasted image 20240502133121.png" alt="" style="object-fit: scale-down">
+
+
+<div class="has-light-background" style="font-size: 28px; color: white; background-color: #fdf6e3; position: absolute; left: -9.375%; top: 92.14285714285715%; height: 5.714285714285714%; width: 100%; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-evenly" align="right">
+
+https://www.npmjs.com/package/eslint-plugin-jsx-a11y
+</div>
+
+
+<div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="assets/Pasted image 20240502132533.png" alt="" style="width: 160px; object-fit: fill">
+
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
 ### Web Content Accessibility Guidelines Checklist
 
 <img src="assets/Pasted image 20240501095732.png" alt="" style="object-fit: scale-down">
@@ -412,7 +463,7 @@ https://webaim.org/standards/wcag/checklist
 
 <div class="has-light-background" style="background-color: white; position: absolute; left: 91.66666666666667%; top: 88.57142857142857%; height: 11.428571428571429%; width: 8.333333333333332%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
 
-<img src="assets/Pasted image 20240501095139.png" alt="" style="object-fit: scale-down">
+<img src="assets/Pasted image 20240501095139.png" alt="" style="width: 160px; object-fit: fill">
 
 </div>
 </div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
@@ -437,6 +488,10 @@ https://wave.webaim.org/extension/
 <div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
 
 ## Thank you.
+
+https://czino.github.io/web-accessibility-basics-presentation/
+
+<img src="assets/Pasted image 20240516083752.png" alt="" style="width: 160px; object-fit: fill">
 </div></script></section></div>
     </div>
 
